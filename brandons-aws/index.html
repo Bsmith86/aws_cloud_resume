@@ -8,17 +8,24 @@
     <script src="https://kit.fontawesome.com/4e7bec34cd.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="script.js"></script>
-    <title>Document</title>
+    <title>Brandon's Cloud Resume</title>
+
+    <script>
+        fetch('https://vp0vola44c.execute-api.us-east-2.amazonaws.com/Prod/hello')
+            .then(response => response.json())
+            .then((data) => {
+                document.getElementById('visitorCount').innerText = data.count
+            })
+    </script>
+
 </head>
 <body>
     
     <p>Total Visitors: <span id="visitorCount">Loading...</span></p>
     
 
-    <!-- Call the function to make the API request -->
-    <script>
-        makeApiRequest();
-    </script>
+    
+    
 
     <div class="container">
         <div class="header">

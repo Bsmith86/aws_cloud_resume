@@ -14,8 +14,14 @@
 export const lambdaHandler = async (event, context) => {
     const response = {
       statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': '*',
+        'Access-Control-Allow-Headers': '*',
+      },
       body: JSON.stringify({
-        message: 'hello world',
+        message: 'Count: 2',
+        count: 3
       })
     };
 
