@@ -20,3 +20,15 @@ function makeApiRequest() {
             console.error('There was a problem with the fetch operation:', error);
         });
 }
+
+
+fetch('https://vp0vola44c.execute-api.us-east-2.amazonaws.com/Prod/get-function')
+            .then(response => response.json())
+            .then((data) => {
+                document.getElementById('count').innerText = data.count
+            })
+fetch('https://vp0vola44c.execute-api.us-east-2.amazonaws.com/Prod/put-function')
+            .then(response => response.json())
+            .then((data) => {
+                document.getElementById('count').innerText = data.count
+            })

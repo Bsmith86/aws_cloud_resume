@@ -94,57 +94,15 @@ Resources:
         Enabled: "true"
         DefaultRootObject: index.html   
 
-  HelloWorldFunction:
-    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
-    Properties:
-      CodeUri: hello-world/
-      Handler: app.lambdaHandler
-      Runtime: nodejs20.x
-      Architectures:
-      - x86_64
-      Events:
-        HelloWorld:
-          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
-          Properties:
-            Path: /hello
-            Method: get
-
-  ApplicationResourceGroup:
-    Type: AWS::ResourceGroups::Group
-    Properties:
-      Name:
-        Fn::Sub: ApplicationInsights-SAM-${AWS::StackName}
-      ResourceQuery:
-        Type: CLOUDFORMATION_STACK_1_0
-  ApplicationInsightsMonitoring:
-    Type: AWS::ApplicationInsights::Application
-    Properties:
-      ResourceGroupName:
-        Ref: ApplicationResourceGroup
-      AutoConfigurationEnabled: 'true'
-Outputs:
-  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
-  # Find out more about other implicit resources you can reference within SAM
-  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
-  HelloWorldApi:
-    Description: API Gateway endpoint URL for Prod stage for Hello World function
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
-  HelloWorldFunction:
-    Description: Hello World Lambda Function ARN
-    Value: !GetAtt HelloWorldFunction.Arn
-  HelloWorldFunctionIamRole:
-    Description: Implicit IAM Role created for Hello World function
-    Value: !GetAtt HelloWorldFunctionRole.Arn
-
-  Resources:
   MyGetFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://aws-sam-cli-managed-default-samclisourcebucket-dfd7ts6ugjis/cloud-resume-challenge/
-      Handler: index.handler
-      Runtime: nodejs14.x
+      CodeUri: get-function/
+      Handler: get-function
+      Runtime: nodejs20.x
+      Tracing: Active
       Events:
-        MyGetApi:
+        CatchAll:
           Type: Api
           Properties:
             Path: /get
@@ -153,6 +111,7 @@ Outputs:
       Timeout: 30
       Policies:
         - AWSLambdaBasicExecutionRole
+    
 
   MyGetApi:
     Type: AWS::Serverless::Api
@@ -175,11 +134,12 @@ Outputs:
   MyPutFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://aws-sam-cli-managed-default-samclisourcebucket-dfd7ts6ugjis/cloud-resume-challenge/
-      Handler: index.handler
-      Runtime: nodejs14.x
+      CodeUri: put-function/
+      Handler: put-function
+      Runtime: nodejs20.x
+      Tracing: Active
       Events:
-        MyPutApi:
+        CatchAll:
           Type: Api
           Properties:
             Path: /put
@@ -206,3 +166,57 @@ Outputs:
                 passthroughBehavior: "when_no_match"
                 httpMethod: "POST"
                 type: "aws_proxy"
+
+  # HelloWorldFunction:
+  #   Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+  #   Properties:
+  #     CodeUri: hello-world/
+  #     Handler: app.lambdaHandler
+  #     Runtime: nodejs20.x
+  #     Architectures:
+  #     - x86_64
+  #     Events:
+  #       HelloWorld:
+  #         Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+  #         Properties:
+  #           Path: /hello
+  #           Method: get
+
+  ApplicationResourceGroup:
+    Type: AWS::ResourceGroups::Group
+    Properties:
+      Name:
+        Fn::Sub: ApplicationInsights-SAM-${AWS::StackName}
+      ResourceQuery:
+        Type: CLOUDFORMATION_STACK_1_0
+  ApplicationInsightsMonitoring:
+    Type: AWS::ApplicationInsights::Application
+    Properties:
+      ResourceGroupName:
+        Ref: ApplicationResourceGroup
+      AutoConfigurationEnabled: 'true'
+Outputs:
+  # HelloWorldApi:
+  #   Description: API Gateway endpoint URL for Prod stage for Hello World function
+  #   Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
+  # HelloWorldFunction:
+  #   Description: Hello World Lambda Function ARN
+  #   Value: !GetAtt HelloWorldFunction.Arn
+  # HelloWorldFunctionIamRole:
+  #   Description: Implicit IAM Role created for Hello World function
+  #   Value: !GetAtt HelloWorldFunctionRole.Arn
+  MyGetFunctionArn:
+    Description: ARN of the MyGetFunction Lambda function
+    Value: !GetAtt MyGetFunction.Arn
+
+  MyGetApiEndpoint:
+    Description: Endpoint URL of the MyGetApi API Gateway
+    Value: !Sub "https://${MyGetApi}.execute-api.${AWS::Region}.amazonaws.com/prod/get"
+
+  MyPutFunctionArn:
+    Description: ARN of the MyPutFunction Lambda function
+    Value: !GetAtt MyPutFunction.Arn
+
+  MyPutApiEndpoint:
+    Description: Endpoint URL of the MyPutApi API Gateway
+    Value: !Sub "https://${MyPutApi}.execute-api.${AWS::Region}.amazonaws.com/prod/put"

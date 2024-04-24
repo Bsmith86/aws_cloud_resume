@@ -11,7 +11,7 @@
  * 
  */
 
-export const lambdaHandler = async (event, context) => {
+export const getFunction = async (event, context) => {
     const response = {
       statusCode: 200,
       headers: {
@@ -28,3 +28,19 @@ export const lambdaHandler = async (event, context) => {
     return response;
   };
   
+  export const putFunction = async (event, context) => {
+    const response = {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': '*',
+        'Access-Control-Allow-Headers': '*',
+      },
+      body: JSON.stringify({
+        message: 'Count: 2',
+        count: 3
+      })
+    };
+
+    return response;
+  };
