@@ -22,12 +22,12 @@ function makeApiRequest() {
 }
 
 
-fetch('https://vp0vola44c.execute-api.us-east-2.amazonaws.com/Prod/get-function')
+fetch('https://vp0vola44c.execute-api.us-east-2.amazonaws.com/Prod/get')
             .then(response => response.json())
             .then((data) => {
                 document.getElementById('count').innerText = data.count
             })
-fetch('https://vp0vola44c.execute-api.us-east-2.amazonaws.com/Prod/put-function')
+fetch('https://vp0vola44c.execute-api.us-east-2.amazonaws.com/Prod/put')
             .then(response => response.json())
             .then((data) => {
                 document.getElementById('count').innerText = data.count

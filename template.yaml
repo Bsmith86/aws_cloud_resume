@@ -97,8 +97,8 @@ Resources:
   MyGetFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: get-function/
-      Handler: get-function
+      CodeUri: getFunction/
+      Handler: app.getFunction
       Runtime: nodejs20.x
       Tracing: Active
       Events:
@@ -107,9 +107,12 @@ Resources:
           Properties:
             Path: /get
             Method: GET
+
       MemorySize: 128
       Timeout: 30
       Policies:
+        - DynamoDBCrudPolicy:
+            TableName: cloud-resume-challenge
         - AWSLambdaBasicExecutionRole
     
 
@@ -134,8 +137,8 @@ Resources:
   MyPutFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: put-function/
-      Handler: put-function
+      CodeUri: putFunction/
+      Handler: app.putFunction
       Runtime: nodejs20.x
       Tracing: Active
       Events:
@@ -147,7 +150,9 @@ Resources:
       MemorySize: 128
       Timeout: 30
       Policies:
-        - AWSLambdaBasicExecutionRole
+        - DynamoDBCrudPolicy:
+            TableName: cloud-resume-challenge
+
 
   MyPutApi:
     Type: AWS::Serverless::Api
