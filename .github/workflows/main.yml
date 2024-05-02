@@ -25,7 +25,7 @@ jobs:
         run: npm install
 
       - name: Test getFunction
-        run: cd ../../ && cd getFunction && npm test getFunction && cd ../../
+        run: cd getFunction && npm test getFunction && cd ../../
 
       - name: Test putFunction
-        run: cd ../../ cd getFunction && npm test putFunction && cd ../../
+        run: cd getFunction && npm test putFunction && cd ../../
