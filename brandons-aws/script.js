@@ -36,7 +36,13 @@ fetch('https://vp0vola44c.execute-api.us-east-2.amazonaws.com/Prod/get')
 async function updateVisitorCount() {
     try {
       const response = await fetch('https://vp0vola44c.execute-api.us-east-2.amazonaws.com/Prod/put', {
-        method: 'PUT' // Since your Lambda function expects a PUT request
+        method: 'PUT', // Since your Lambda function expects a PUT request
+        mode: 'no-cors', // Set the mode to 'no-cors'
+        headers: {
+          'Content-Type': 'application/json'
+          // Add any other headers if needed
+        },
+        body: JSON.stringify(data) // Replace 'data' with your request body
       });
   
       if (!response.ok) {
