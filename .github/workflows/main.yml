@@ -25,7 +25,7 @@ jobs:
         run: npm install
 
       - name: Test getFunction
-        run: cd ../../ && cd aws_cloud_resume/getFunction && npm test getFunction && cd ../../
+        run: cd ../../ && cd getFunction && npm test getFunction && cd ../../
 
       - name: Test putFunction
-        run: cd ../../ cd aws_cloud_resume/getFunction && npm test putFunction && cd ../../
+        run: cd ../../ cd getFunction && npm test putFunction && cd ../../
