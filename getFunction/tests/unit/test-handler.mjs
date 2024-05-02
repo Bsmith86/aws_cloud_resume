@@ -6,15 +6,16 @@ var event, context;
 
 describe('Tests index', function () {
     it('verifies successful response', async () => {
-        const result = await getFunction(event, context)
+        const result = await getFunction(event, context);
 
         expect(result).to.be.an('object');
         expect(result.statusCode).to.equal(200);
-        expect(result.body).to.be.an('string');
+        expect(result.body).to.be.a('string');
 
         let response = JSON.parse(result.body);
 
         expect(response).to.be.an('object');
-        expect(response.message).to.be.equal("count");
+        expect(response.visitors).to.be.a('number'); // Ensure visitors is a number
     });
 });
+

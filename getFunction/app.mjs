@@ -14,6 +14,10 @@
 // Import the AWS SDK
 import AWS from 'aws-sdk';
 
+// Set the AWS region
+AWS.config.update({ region: 'us-east-2' });
+
+
 // Create a DynamoDB client
 const dynamodb = new AWS.DynamoDB();
 

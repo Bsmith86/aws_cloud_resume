@@ -1,18 +1,9 @@
-/**
- *
- * Event doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-input-format
- * @param {Object} event - API Gateway Lambda Proxy Input Format
- *
- * Context doc: https://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-context.html 
- * @param {Object} context
- *
- * Return doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html
- * @returns {Object} object - API Gateway Lambda Proxy Output Format
- * 
- */
+'use strict';
 
-// Import the AWS SDK
 import AWS from 'aws-sdk';
+
+// Set the AWS region
+AWS.config.update({ region: 'us-east-2' });
 
 // Create a DynamoDB client
 const dynamodb = new AWS.DynamoDB();
@@ -22,9 +13,9 @@ export const putFunction = async (event, context) => {
   try {
     // Define parameters for DynamoDB query to retrieve current count value
     const params = {
-      TableName: 'cloud-resume-challenge', // Name of your DynamoDB table
+      TableName: 'cloud-resume-challenge',
       Key: {
-        'ID': { S: 'visitors' } // Primary key and value to retrieve
+        'ID': { S: 'visitors' }
       }
     };
 
@@ -32,23 +23,23 @@ export const putFunction = async (event, context) => {
     const data = await dynamodb.getItem(params).promise();
 
     // Extract the current count value from the DynamoDB response
-    let count = parseInt(data.Item.visitors.N); // Access 'visitors' attribute
+    let count = parseInt(data.Item.visitors.N);
 
     // Increment the count value by one
     count++;
 
     // Update the count value in DynamoDB
     const updateParams = {
-      TableName: 'cloud-resume-challenge', // Name of your DynamoDB table
+      TableName: 'cloud-resume-challenge',
       Key: {
-        'ID': { S: 'visitors' } // Primary key and value to update
+        'ID': { S: 'visitors' }
       },
-      UpdateExpression: 'SET #v = :count',
+      UpdateExpression: 'SET #v = :count', // Use ':count' instead of ':visitors'
       ExpressionAttributeNames: {
-        '#v': 'visitors' // Attribute representing the count value in DynamoDB
+        '#v': 'visitors'
       },
       ExpressionAttributeValues: {
-        ':count': { N: count.toString() } // Assuming the count attribute is stored as a number
+        ':count': { N: count.toString() } // Use 'count' instead of 'visitors'
       }
     };
 
@@ -63,7 +54,7 @@ export const putFunction = async (event, context) => {
         'Access-Control-Allow-Methods': 'PUT',
         'Access-Control-Allow-Headers': 'Content-Type'
       },
-      body: JSON.stringify({ count })
+      body: JSON.stringify({ count }) // Return the updated count value
     };
 
     // Return the response
@@ -77,4 +68,3 @@ export const putFunction = async (event, context) => {
     };
   }
 };
-
