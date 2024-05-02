@@ -19,10 +19,10 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '20' # Adjust to your Node.js version if needed
+          node-version: '20'
 
       - name: Install Dependencies
-        run: cd npm install
+        run: npm install
 
       - name: Test getFunction
         run: cd aws_cloud_resume/getFunction && npm test getFunction && cd ../../
