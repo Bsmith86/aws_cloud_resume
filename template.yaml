@@ -206,7 +206,7 @@ Resources:
       # Add CORS configuration here
       Cors:
         AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
-        AllowMethods: "'PUT,OPTIONS'"
+        AllowMethods: "'PUT,OPTIONS,GET'"
         AllowOrigin: "'*'"
 
 

@@ -3,7 +3,7 @@ async function updateVisitorCount() {
     try {
         const data = {}; // Initialize data object here or assign it a value
         const response = await fetch('https://vp0vola44c.execute-api.us-east-2.amazonaws.com/Prod/put', {
-            method: 'PUT',
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'x-api-key': 'L8dCAkQgOJ2tHGlHYWpxT1FAGmRu48vs6eL5Demq'
