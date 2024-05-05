@@ -51,7 +51,7 @@ export const putFunction = async (event, context) => {
       statusCode: 200,
       headers: {
         'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'PUT',
+        'Access-Control-Allow-Methods': '*',
         'Access-Control-Allow-Headers': 'Content-Type'
       },
       body: JSON.stringify({ count }) // Return the updated count value
