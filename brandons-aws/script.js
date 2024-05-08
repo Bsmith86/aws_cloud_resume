@@ -1,4 +1,3 @@
-apiRequest.js
 async function updateVisitorCount() {
     try {
         const data = {}; // Initialize data object here or assign it a value
@@ -6,7 +5,6 @@ async function updateVisitorCount() {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'x-api-key': 'L8dCAkQgOJ2tHGlHYWpxT1FAGmRu48vs6eL5Demq'
             },
             body: JSON.stringify(data)
         });
